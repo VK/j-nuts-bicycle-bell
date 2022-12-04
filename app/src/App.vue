@@ -66,7 +66,7 @@ export default {
     drawer: null,
     refreshing: false,
     appTitle: "J🌰 Kalender",
-    type: "",
+    type: "bariton",
     subscribed: undefined,
     subscription: null,
     worker: null,
