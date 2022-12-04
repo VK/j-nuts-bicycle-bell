@@ -1,6 +1,6 @@
 <template>
   <div class="bellDiv" ref="bellDiv">
-    <v-sheet height="100%">
+    <v-sheet height="100vh">
       <div class="w-100 text-center">
         <v-btn icon :style="bellStyle" @click="ring">
           <v-icon :size="bellSize">mdi-bell-ring-outline</v-icon>
@@ -22,6 +22,7 @@ export default {
   data: () => ({
     iWidth: 0,
     iHeight: 0,
+    iTop: 0,
     type: "sopran",
     types: ["sopran", "alt", "bariton"],
   }),
@@ -31,10 +32,10 @@ export default {
       return {
         width: this.iWidth + "px",
         height: this.iHeight + "px",
+        top: this.iTop + "px",
       };
     },
     bellSize() {
-      console.log((this.iWidth * 0.5).toString() + "px");
       return (this.iWidth * 0.5).toString() + "px";
     },
   },
@@ -52,9 +53,13 @@ export default {
         this.$refs.bellDiv.clientHeight,
         this.$refs.bellDiv.clientWidth
       );
-      console.log(new_min);
+
       this.iWidth = new_min - 20;
       this.iHeight = this.iWidth;
+      this.iTop = Math.max(
+        0,
+        this.$refs.bellDiv.clientHeight - this.$refs.bellDiv.clientWidth - 30
+      );
     },
   },
 
