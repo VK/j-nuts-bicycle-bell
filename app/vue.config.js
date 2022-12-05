@@ -9,11 +9,11 @@ module.exports = defineConfig({
       entry: 'src/main.js',
       template: 'public/index.html',
       filename: 'index.html',
-      title: 'J🌰 Kalender'
+      title: 'J🌰 Bicycle Bell'
     }
   },
   pwa: {
-    name: 'J🌰 Kalender',
+    name: 'J🌰 Bicycle Bell',
     themeColor: '#28a745',
     msTileColor: '#000000',
     appleMobileWebAppCapable: 'yes',
