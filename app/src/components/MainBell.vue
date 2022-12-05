@@ -1,10 +1,14 @@
 <template>
   <div class="bellDiv" ref="bellDiv">
     <v-sheet height="100vh">
-      <div class="w-100 text-center">
+      <div class="w-100 text-center" v-if="offline">
         <v-btn icon :style="bellStyle" @click="ring">
           <v-icon :size="bellSize">mdi-bell-ring-outline</v-icon>
         </v-btn>
+      </div>
+      <div v-else class="w-100 text-center text-h3 pa-3">
+        You must be in airplane mode to use the bell.<br />
+        <v-icon :size="bellSize">mdi-airplane-check</v-icon>
       </div>
     </v-sheet>
   </div>
@@ -13,6 +17,7 @@
 
 <script>
 import Wad from "web-audio-daw";
+import { watch } from 'is-offline';
 
 // const sounds = {
 //   sopran: new Audio(require("/public/audio/A sopran.mp3")),
@@ -31,6 +36,7 @@ export default {
     iWidth: 0,
     iHeight: 0,
     iTop: 0,
+    offline: false,
     type: "sopran",
     types: ["sopran", "alt", "bariton"],
   }),
@@ -79,6 +85,8 @@ export default {
       this.update_size();
     });
     setTimeout(this.update_size(), 5000);
+
+    watch((state) => {this.offline = state});
   },
 };
 </script>
