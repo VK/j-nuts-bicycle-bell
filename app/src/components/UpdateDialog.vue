@@ -38,7 +38,6 @@ export default {
       }
       this.worker.postMessage({ type: "SKIP_WAITING" });
       console.log("skipWaiting finished");
-      window.location.reload();
     },
   },
 };

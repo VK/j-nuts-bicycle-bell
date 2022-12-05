@@ -47,6 +47,12 @@ self.addEventListener('notificationclick', function (event) {
   event.waitUntil(
     self.clients.openWindow('https://jazznuts.krueckl.de')
   );
-});  
+});
+
+self.addEventListener('message', (event) => {
+  if (event.data === 'SKIP_WAITING') {
+    self.skipWaiting();
+  }
+});
 
 
