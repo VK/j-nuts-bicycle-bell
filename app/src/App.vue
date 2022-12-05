@@ -28,6 +28,10 @@
           ></v-select>
         </v-list-item>
 
+        <v-list-item>
+          Alpha 1
+        </v-list-item>
+
 
       </v-list>
     </v-navigation-drawer>
