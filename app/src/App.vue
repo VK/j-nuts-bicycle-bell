@@ -65,7 +65,7 @@ export default {
   data: () => ({
     drawer: null,
     refreshing: false,
-    appTitle: "J🌰 Kalender",
+    appTitle: "J🌰 Bicycle Bell",
     type: "bariton",
     subscribed: undefined,
     subscription: null,

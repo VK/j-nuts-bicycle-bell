@@ -20,11 +20,11 @@ self.addEventListener('push', function (event) {
     }
   }
 
-  const title = 'J🌰 Kalender';
+  const title = 'J🌰 Bicycle Bell';
   const options = {
     body: data["text"],
-    icon: 'https://jazznuts.krueckl.de/img/icon.png',
-    badge: 'https://jazznuts.krueckl.de/img/icon.png'
+    icon: 'https://j-nuts-bell.krueckl.de/img/icon.png',
+    badge: 'https://j-nuts-bell.krueckl.de/img/icon.png'
   };
 
 

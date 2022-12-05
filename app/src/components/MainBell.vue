@@ -12,10 +12,18 @@
 
 
 <script>
+import Wad from "web-audio-daw";
+
+// const sounds = {
+//   sopran: new Audio(require("/public/audio/A sopran.mp3")),
+//   alt: new Audio(require("/public/audio/A alt.mp3")),
+//   bariton: new Audio(require("/public/audio/A bariton.mp3")),
+// };
+
 const sounds = {
-  sopran: new Audio(require("/public/audio/A sopran.mp3")),
-  alt: new Audio(require("/public/audio/A alt.mp3")),
-  bariton: new Audio(require("/public/audio/A bariton.mp3")),
+  sopran: new Wad({ source: "/audio/A sopran.mp3" }),
+  alt: new Wad({ source: "/audio/A alt.mp3" }),
+  bariton: new Wad({ source: "/audio/A bariton.mp3" }),
 };
 
 export default {
@@ -42,24 +50,27 @@ export default {
   methods: {
     ring() {
       let audio = sounds[this.type];
-      if (audio.paused) {
-        audio.play();
-      } else {
-        audio.currentTime = 0;
-      }
+      audio.play();
+      // if (audio.paused) {
+      //   audio.play();
+      // } else {
+      //   audio.currentTime = 0;
+      // }
     },
     update_size() {
-      let new_min = Math.min(
-        this.$refs.bellDiv.clientHeight,
-        this.$refs.bellDiv.clientWidth
-      );
+      if (this.$refs.bellDiv) {
+        let new_min = Math.min(
+          this.$refs.bellDiv.clientHeight,
+          this.$refs.bellDiv.clientWidth
+        );
 
-      this.iWidth = new_min - 20;
-      this.iHeight = this.iWidth;
-      this.iTop = Math.max(
-        0,
-        this.$refs.bellDiv.clientHeight - this.$refs.bellDiv.clientWidth - 30
-      );
+        this.iWidth = new_min - 20;
+        this.iHeight = this.iWidth;
+        this.iTop = Math.max(
+          0,
+          this.$refs.bellDiv.clientHeight - this.$refs.bellDiv.clientWidth - 30
+        );
+      }
     },
   },
 
@@ -75,6 +86,8 @@ export default {
 
 <style scoped>
 .bellDiv {
-  height: calc(100% - 50px);
+  height: calc(100vh - 62px);
+  top: 0px;
+  overflow: hidden;
 }
 </style>
