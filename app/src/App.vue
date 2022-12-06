@@ -29,7 +29,7 @@
         </v-list-item>
 
         <v-list-item>
-          Alpha 1
+          Alpha 2
         </v-list-item>
 
 

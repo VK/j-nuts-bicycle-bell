@@ -1,14 +1,15 @@
 <template>
   <div class="bellDiv" ref="bellDiv">
     <v-sheet height="100vh">
-      <div class="w-100 text-center" v-if="offline">
+      <div class="w-100 text-center" v-if="(offline || ignore)">
         <v-btn icon :style="bellStyle" @click="ring">
           <v-icon :size="bellSize">mdi-bell-ring-outline</v-icon>
         </v-btn>
       </div>
       <div v-else class="w-100 text-center text-h3 pa-3">
-        You must be in airplane mode to use the bell.<br />
-        <v-icon :size="bellSize">mdi-airplane-check</v-icon>
+        Please use airplane mode!<br />
+        <v-icon :size="bellSize">mdi-airplane-check</v-icon><br />
+        <v-btn elevation="2" x-large  @click="ign">Ignore</v-btn>
       </div>
     </v-sheet>
   </div>
@@ -37,6 +38,7 @@ export default {
     iHeight: 0,
     iTop: 0,
     offline: false,
+    ignore: false,
     type: "sopran",
     types: ["sopran", "alt", "bariton"],
   }),
@@ -54,14 +56,13 @@ export default {
     },
   },
   methods: {
+    ign() {
+      this.ignore = true;
+    },
     ring() {
       let audio = sounds[this.type];
       audio.play();
-      // if (audio.paused) {
-      //   audio.play();
-      // } else {
-      //   audio.currentTime = 0;
-      // }
+
     },
     update_size() {
       if (this.$refs.bellDiv) {
