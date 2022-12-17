@@ -2,7 +2,7 @@
   <div class="bellDiv" ref="bellDiv">
     <v-sheet height="100vh">
       <div class="w-100 text-center" v-if="offline || ignore">
-        <v-btn icon :style="bellStyle" @click="ring">
+        <v-btn icon :style="bellStyle" @click="ring" v-touch:tap="ring">
           <v-icon :size="bellSize">mdi-bell-ring-outline</v-icon>
         </v-btn>
       </div>
