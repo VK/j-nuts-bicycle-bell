@@ -29,7 +29,7 @@
         </v-list-item>
 
         <v-list-item>
-          Beta 4
+          Beta 5
         </v-list-item>
 
 

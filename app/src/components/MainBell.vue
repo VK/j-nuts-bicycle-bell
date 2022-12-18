@@ -2,9 +2,16 @@
   <div class="bellDiv" ref="bellDiv">
     <v-sheet height="100vh">
       <div class="w-100 text-center" v-if="offline || ignore">
-        <v-btn icon :style="bellStyle" @mousedown="ring" :disabled="!enabled">
+        <v-btn
+          icon
+          :style="bellStyle"
+          @touchstart="touchstart"
+          @touchend="touchend"
+          :disabled="!enabled && !touching"
+        >
           <v-icon :size="bellSize" v-if="enabled">mdi-bell-ring-outline</v-icon>
-          <v-progress-circular v-else
+          <v-progress-circular
+            v-else
             :size="progSize"
             color="primary"
             indeterminate
@@ -64,6 +71,7 @@ export default {
     type: "sopran",
     types: ["sopran", "alt", "bariton"],
     enabled: true,
+    touching: false
   }),
 
   computed: {
@@ -87,6 +95,9 @@ export default {
     },
     reenable() {
       this.enabled = true;
+      if (this.touching) {
+        this.ring();
+      }
     },
     ring() {
       this.enabled = false;
@@ -95,7 +106,14 @@ export default {
       const key = keys[Math.floor(Math.random() * keys.length)];
       audio[key]["play"]();
 
-      setTimeout(this.reenable, 1000);
+      setTimeout(this.reenable, 700 + Math.floor(Math.random() * 500));
+    },
+    touchstart() {
+      this.touching = true;
+      this.ring();
+    },
+    touchend() {
+      this.touching = false;
     },
     update_size() {
       if (this.$refs.bellDiv) {
