@@ -13,7 +13,6 @@
 
         <v-divider></v-divider>
 
-
         <v-list-item>
           <v-select
             v-model="type"
@@ -24,15 +23,20 @@
             return-object
             class="ma-2"
             label="Stimme"
-            @change="changeVoiceType"
+            @change="changeBellType"
           ></v-select>
         </v-list-item>
 
         <v-list-item>
-          Beta 5
+          <v-switch
+            v-model="auto"
+            inset
+            label="Autoplay"
+            @change="changeBellType"
+          ></v-switch>
         </v-list-item>
 
-
+        <v-list-item> Beta 6 </v-list-item>
       </v-list>
     </v-navigation-drawer>
 
@@ -43,12 +47,9 @@
     </v-app-bar>
 
     <v-main>
-      <MainBell
-        ref="bell"
-      />
+      <MainBell ref="bell" />
     </v-main>
     <UpdateDialog ref="updateDialog"></UpdateDialog>
-    
   </v-app>
 </template>
 
@@ -56,7 +57,6 @@
 <script>
 import MainBell from "./components/MainBell";
 import UpdateDialog from "./components/UpdateDialog.vue";
-
 
 export default {
   name: "App",
@@ -74,6 +74,7 @@ export default {
     subscribed: undefined,
     subscription: null,
     worker: null,
+    auto: false,
   }),
   methods: {
     isMobile() {
@@ -92,11 +93,12 @@ export default {
       }
     },
 
-    changeVoiceType() {
+    changeBellType() {
       this.$refs.bell.type = this.type;
+      this.$refs.bell.auto = this.auto;
       localStorage.setItem("type", this.type);
+      localStorage.setItem("auto", this.auto);
     },
-
   },
 
   created() {
@@ -110,8 +112,19 @@ export default {
       console.log("no old type config");
     }
 
+    try {
+      let old_auto = localStorage.getItem("auto");
 
-    setTimeout(() => {this.$refs.bell.type = this.type;}, 100);
+      if (old_auto) {
+        this.auto = old_auto;
+      }
+    } catch {
+      console.log("no old type config");
+    }
+
+    setTimeout(() => {
+      this.$refs.bell.type = this.type;
+    }, 100);
 
     //Listener for the push stuff
     document.addEventListener("swRegistered", this.pushPossible);
@@ -138,7 +151,6 @@ export default {
 
 
 <style>
-
 html {
   overflow-y: auto;
   user-select: none; /* supported by Chrome and Opera */

@@ -70,8 +70,9 @@ export default {
     ignore: false,
     type: "sopran",
     types: ["sopran", "alt", "bariton"],
+    auto: false,
     enabled: true,
-    touching: false
+    touching: false,
   }),
 
   computed: {
@@ -95,7 +96,7 @@ export default {
     },
     reenable() {
       this.enabled = true;
-      if (this.touching) {
+      if (this.touching & this.auto) {
         this.ring();
       }
     },
@@ -110,7 +111,9 @@ export default {
     },
     touchstart() {
       this.touching = true;
-      this.ring();
+      if (this.enabled) {
+        this.ring();
+      }
     },
     touchend() {
       this.touching = false;
