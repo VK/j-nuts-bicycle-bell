@@ -2,8 +2,13 @@
   <div class="bellDiv" ref="bellDiv">
     <v-sheet height="100vh">
       <div class="w-100 text-center" v-if="offline || ignore">
-        <v-btn icon :style="bellStyle" @mousedown="ring">
-          <v-icon :size="bellSize">mdi-bell-ring-outline</v-icon>
+        <v-btn icon :style="bellStyle" @mousedown="ring" :disabled="!enabled">
+          <v-icon :size="bellSize" v-if="enabled">mdi-bell-ring-outline</v-icon>
+          <v-progress-circular v-else
+            :size="progSize"
+            color="primary"
+            indeterminate
+          ></v-progress-circular>
         </v-btn>
       </div>
       <div v-else class="w-100 text-center text-h3 pa-3">
@@ -45,7 +50,7 @@ const sprites = {
 
 const sounds = {
   sopran: new Wad({ source: "/audio/sopran.mp3", sprite: sprites }),
-  alt: new Wad({ source: "/audio/alt.mp3", sprite: sprites}),
+  alt: new Wad({ source: "/audio/alt.mp3", sprite: sprites }),
   bariton: new Wad({ source: "/audio/bariton.mp3", sprite: sprites }),
 };
 
@@ -58,6 +63,7 @@ export default {
     ignore: false,
     type: "sopran",
     types: ["sopran", "alt", "bariton"],
+    enabled: true,
   }),
 
   computed: {
@@ -71,16 +77,25 @@ export default {
     bellSize() {
       return (this.iWidth * 0.5).toString() + "px";
     },
+    progSize() {
+      return this.iWidth * 0.5;
+    },
   },
   methods: {
     ign() {
       this.ignore = true;
     },
+    reenable() {
+      this.enabled = true;
+    },
     ring() {
+      this.enabled = false;
       const audio = sounds[this.type];
       const keys = Object.keys(audio.sprite);
       const key = keys[Math.floor(Math.random() * keys.length)];
       audio[key]["play"]();
+
+      setTimeout(this.reenable, 1000);
     },
     update_size() {
       if (this.$refs.bellDiv) {
