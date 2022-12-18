@@ -124,6 +124,7 @@ export default {
 
     setTimeout(() => {
       this.$refs.bell.type = this.type;
+      this.$refs.bell.auto = this.auto;
     }, 100);
 
     //Listener for the push stuff
