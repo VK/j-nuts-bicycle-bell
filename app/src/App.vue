@@ -36,7 +36,7 @@
           ></v-switch>
         </v-list-item>
 
-        <v-list-item> Beta 6 </v-list-item>
+        <v-list-item> Beta 7</v-list-item>
       </v-list>
     </v-navigation-drawer>
 
@@ -113,7 +113,7 @@ export default {
     }
 
     try {
-      let old_auto = localStorage.getItem("auto");
+      let old_auto = JSON.parse(localStorage.getItem("auto"));
 
       if (old_auto) {
         this.auto = old_auto;
@@ -123,9 +123,8 @@ export default {
     }
 
     setTimeout(() => {
-      this.$refs.bell.type = this.type;
-      this.$refs.bell.auto = this.auto;
-    }, 100);
+      this.$refs.bell.set_config(this.auto, this.type);
+    }, 200);
 
     //Listener for the push stuff
     document.addEventListener("swRegistered", this.pushPossible);

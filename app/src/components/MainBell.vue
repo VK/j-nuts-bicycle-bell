@@ -1,5 +1,6 @@
 <template>
   <div class="bellDiv" ref="bellDiv">
+
     <v-sheet height="100vh">
       <div class="w-100 text-center" v-if="offline || ignore">
         <v-btn
@@ -91,10 +92,15 @@ export default {
     },
   },
   methods: {
+    set_config(auto, type) {
+      this.auto = auto;
+      this.type = type;
+    },
     ign() {
       this.ignore = true;
     },
     reenable() {
+
       this.enabled = true;
       if (this.touching & this.auto) {
         this.ring();
