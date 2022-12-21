@@ -1,6 +1,5 @@
 <template>
   <div class="bellDiv" ref="bellDiv">
-
     <v-sheet height="100vh">
       <div class="w-100 text-center" v-if="offline || ignore">
         <v-btn
@@ -100,7 +99,6 @@ export default {
       this.ignore = true;
     },
     reenable() {
-
       this.enabled = true;
       if (this.touching & this.auto) {
         this.ring();
@@ -113,7 +111,11 @@ export default {
       const key = keys[Math.floor(Math.random() * keys.length)];
       audio[key]["play"]();
 
-      setTimeout(this.reenable, 700 + Math.floor(Math.random() * 500));
+      if (this.auto) {
+        setTimeout(this.reenable, 700 + Math.floor(Math.random() * 500));
+      } else {
+        setTimeout(this.reenable, 250);
+      }
     },
     touchstart() {
       this.touching = true;
