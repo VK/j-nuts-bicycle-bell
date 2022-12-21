@@ -11,7 +11,7 @@
         >
           <v-icon :size="bellSize" v-if="enabled">mdi-bell-ring-outline</v-icon>
           <v-progress-circular
-            v-else
+            v-else-if="auto"
             :size="progSize"
             color="primary"
             indeterminate

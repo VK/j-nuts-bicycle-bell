@@ -36,7 +36,7 @@
           ></v-switch>
         </v-list-item>
 
-        <v-list-item> Beta 9</v-list-item>
+        <v-list-item>1.0</v-list-item>
       </v-list>
     </v-navigation-drawer>
 
