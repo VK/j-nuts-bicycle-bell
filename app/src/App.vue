@@ -101,9 +101,30 @@ export default {
     },
 
     checkInstall() {
-      navigator.getInstalledRelatedApps().then((apps) => {
-        console.log("Installed Apps: ", apps);
-      });
+      if (window.matchMedia("(display-mode: standalone)").matches) {
+        console.log("uses app");
+      } else {
+        console.log("you might want to use the app ");
+
+        window.location = "web+jnutsbell://";
+
+        setTimeout(()  => {
+            console.log("you might want to install the app :D")
+          
+        }, 2000);
+      }
+
+      const search = decodeURIComponent(location.search);
+      if (search.includes("sopran")) {
+        this.type = "sopran";
+        this.changeBellType();
+      } else if (search.includes("alt")) {
+        this.type = "alt";
+        this.changeBellType();
+      } else if (search.includes("bariton")) {
+        this.type = "bariton";
+        this.changeBellType();
+      }
     },
   },
 
