@@ -25,13 +25,15 @@ module.exports = defineConfig({
     },
 
     manifestOptions: {
+      "id": "/",
+      "start_url": "/", 
+      "scope": "/", 
       "prefer_related_applications": true,
       "related_applications": [{
         "platform": "webapp",
         "url": "https://j-nuts-bell.krueckl.de/manifest.json"
 
       }]
-
     }
 
   }
