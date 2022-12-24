@@ -99,6 +99,16 @@ export default {
       localStorage.setItem("type", this.type);
       localStorage.setItem("auto", this.auto);
     },
+
+    checkInstall() {
+      navigator.getInstalledRelatedApps().then(
+
+      (apps) => {
+        console.log("Installed Apps: ", apps);
+      }
+      )
+
+    },
   },
 
   created() {
@@ -125,6 +135,8 @@ export default {
     setTimeout(() => {
       this.$refs.bell.set_config(this.auto, this.type);
     }, 200);
+
+    setTimeout(this.checkInstall, 2000);
 
     //Listener for the push stuff
     document.addEventListener("swRegistered", this.pushPossible);
