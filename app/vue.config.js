@@ -38,7 +38,7 @@ module.exports = defineConfig({
       "protocol_handlers": [
         {
           "protocol": "web+jnutsbell",
-          "url": "/?voice=%s"
+          "url": "/index.html?voice=%s"
         },
       ]      
     }
