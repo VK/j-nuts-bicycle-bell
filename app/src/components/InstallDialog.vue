@@ -2,11 +2,18 @@
   <div class="text-center">
     <v-dialog v-model="show" max-width="300px">
       <v-card>
-        <v-card-title>Install</v-card-title>
+        <v-card-title>Installieren?</v-card-title>
 
-        <v-card-text>
-          <p>Use the installed app.</p>
+        <v-card-text v-if="installed">
+          <p>Du kannst auch die installierte App verwenden.</p>
           <v-btn color="primary" href="web+jnutsbell://" block> App </v-btn>
+        </v-card-text>
+
+        <v-card-text v-if="canInstall">
+          <p>Wenn du möchtest kann die App installiert werden.</p>
+          <v-btn color="primary" @click="triggerInstall" block>
+            Installieren
+          </v-btn>
         </v-card-text>
 
         <v-divider></v-divider>
@@ -25,11 +32,28 @@ export default {
   data() {
     return {
       show: false,
+      installed: false,
+      canInstall: false,
+      installEvent: null,
+      tried: false
     };
   },
   methods: {
     ignore() {
       this.show = false;
+    },
+    triggerInstall() {
+
+      this.installEvent.prompt();
+
+      this.show = false;
+
+      this.installEvent.userChoice.then((res) => {
+         if (res.outcome == 'success') {
+            this.installed = true;
+            this.canInstall = true;
+         }
+      })
     },
   },
 };

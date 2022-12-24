@@ -66,7 +66,7 @@ export default {
   components: {
     MainBell,
     UpdateDialog,
-    InstallDialog
+    InstallDialog,
   },
 
   data: () => ({
@@ -107,7 +107,17 @@ export default {
       if (window.matchMedia("(display-mode: standalone)").matches) {
         console.log("uses app");
       } else {
-        this.$refs.installDialog.show = true;
+        let installed = false;
+        try {
+          installed = JSON.parse(localStorage.getItem("appinstalled"));
+        } catch {
+          console.log("install not set");
+        }
+
+        if (installed) {
+          this.$refs.installDialog.show = true;
+          this.$refs.installDialog.installed = installed;
+        }
       }
 
       const search = decodeURIComponent(location.search);
@@ -145,11 +155,25 @@ export default {
       console.log("no old type config");
     }
 
+    // update the bell config after 200ms
     setTimeout(() => {
       this.$refs.bell.set_config(this.auto, this.type);
     }, 200);
 
+    // check install after 2 seconds
     setTimeout(this.checkInstall, 2000);
+
+    // add the installed event listeners
+    window.addEventListener("appinstalled", () => {
+      localStorage.setItem("appinstalled", "true");
+    });
+    window.addEventListener("beforeinstallprompt", (event) => {
+      event.preventDefault();
+      localStorage.setItem("appinstalled", "false");
+      this.$refs.installDialog.installEvent = event;
+      this.$refs.installDialog.canInstall = true;
+      this.$refs.installDialog.show = true;
+    });
 
     //Listener for the push stuff
     document.addEventListener("swRegistered", this.pushPossible);
