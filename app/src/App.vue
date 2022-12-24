@@ -50,6 +50,7 @@
       <MainBell ref="bell" />
     </v-main>
     <UpdateDialog ref="updateDialog"></UpdateDialog>
+    <InstallDialog ref="installDialog"></InstallDialog>
   </v-app>
 </template>
 
@@ -57,6 +58,7 @@
 <script>
 import MainBell from "./components/MainBell";
 import UpdateDialog from "./components/UpdateDialog.vue";
+import InstallDialog from "./components/InstallDialog.vue";
 
 export default {
   name: "App",
@@ -64,6 +66,7 @@ export default {
   components: {
     MainBell,
     UpdateDialog,
+    InstallDialog
   },
 
   data: () => ({
@@ -104,14 +107,7 @@ export default {
       if (window.matchMedia("(display-mode: standalone)").matches) {
         console.log("uses app");
       } else {
-        console.log("you might want to use the app ");
-
-        window.location = "web+jnutsbell://";
-
-        setTimeout(()  => {
-            console.log("you might want to install the app :D")
-          
-        }, 2000);
+        this.$refs.installDialog.show = true;
       }
 
       const search = decodeURIComponent(location.search);
