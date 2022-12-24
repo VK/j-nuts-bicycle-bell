@@ -22,6 +22,16 @@ module.exports = defineConfig({
     workboxPluginMode: "InjectManifest",
     workboxOptions: {
       swSrc: "./src/service-worker.js",
+    },
+
+    manifestOptions: {
+      "prefer_related_applications": true,
+      "related_applications": [{
+        "platform": "webapp",
+        "url": "https://j-nuts-bell.krueckl.de/manifest.json"
+
+      }]
+
     }
 
   }
