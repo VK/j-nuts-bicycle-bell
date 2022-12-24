@@ -6,11 +6,11 @@
 
         <v-card-text v-if="installed">
           <p>Du kannst auch die installierte App verwenden.</p>
-          <v-btn color="primary" href="web+jnutsbell://" block> App </v-btn>
+          <v-btn color="primary" @click="open" block> App </v-btn>
         </v-card-text>
 
         <v-card-text v-if="canInstall">
-          <p>Wenn du möchtest kann die App installiert werden.</p>
+          <p>Wenn du möchtest, kann die App installiert werden.</p>
           <v-btn color="primary" @click="triggerInstall" block>
             Installieren
           </v-btn>
@@ -28,6 +28,7 @@
 </template>
 
 <script>
+
 export default {
   data() {
     return {
@@ -42,6 +43,9 @@ export default {
     ignore() {
       this.show = false;
     },
+    open() {
+      document.location = "web+jnutsbell://open";
+    },  
     triggerInstall() {
 
       this.installEvent.prompt();
