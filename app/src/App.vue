@@ -101,13 +101,9 @@ export default {
     },
 
     checkInstall() {
-      navigator.getInstalledRelatedApps().then(
-
-      (apps) => {
+      navigator.getInstalledRelatedApps().then((apps) => {
         console.log("Installed Apps: ", apps);
-      }
-      )
-
+      });
     },
   },
 

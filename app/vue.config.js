@@ -33,7 +33,14 @@ module.exports = defineConfig({
         "platform": "webapp",
         "url": "https://j-nuts-bell.krueckl.de/manifest.json"
 
-      }]
+      }],
+
+      "protocol_handlers": [
+        {
+          "protocol": "web+jnutsbell",
+          "url": "/?voice=%s"
+        },
+      ]      
     }
 
   }
