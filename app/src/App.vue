@@ -36,7 +36,16 @@
           ></v-switch>
         </v-list-item>
 
-        <v-list-item>1.0</v-list-item>
+        <v-list-item>
+          <v-switch
+            v-model="wakelock"
+            inset
+            label="WakeLock"
+            :readonly="true"
+          ></v-switch>
+        </v-list-item>
+
+        <v-list-item>1.1</v-list-item>
       </v-list>
     </v-navigation-drawer>
 
@@ -78,6 +87,7 @@ export default {
     subscription: null,
     worker: null,
     auto: false,
+    wakelock: false,
   }),
   methods: {
     isMobile() {
@@ -130,6 +140,21 @@ export default {
       } else if (search.includes("bariton")) {
         this.type = "bariton";
         this.changeBellType();
+      }
+    },
+
+    initWakeLock() {
+      try {
+        navigator.wakeLock.request("screen").then((wakeLock) => {
+          wakeLock.addEventListener("release", () => {
+            console.log("Wake Lock was released");
+            this.wakelock = false;
+          });
+          console.log("Wake Lock is active");
+          this.wakelock = true;
+        });
+      } catch (err) {
+        console.error(`${err.name}, ${err.message}`);
       }
     },
   },
@@ -194,6 +219,9 @@ export default {
           window.location.reload();
         }
       );
+
+    addEventListener("focus", this.initWakeLock);
+    this.initWakeLock();
   },
 };
 </script>
