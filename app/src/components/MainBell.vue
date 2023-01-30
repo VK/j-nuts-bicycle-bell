@@ -30,7 +30,7 @@
 
 <script>
 import Wad from "web-audio-daw";
-import { watch } from "is-offline";
+import { watch, check } from "is-offline";
 
 // const sounds = {
 //   sopran: new Audio(require("/public/audio/A sopran.mp3")),
@@ -148,6 +148,10 @@ export default {
       this.update_size();
     });
     setTimeout(this.update_size(), 5000);
+
+    check().then((state) => {
+      this.offline = state;
+    });
 
     watch((state) => {
       this.offline = state;

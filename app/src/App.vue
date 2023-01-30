@@ -33,6 +33,7 @@
             inset
             label="Autoplay"
             @change="changeBellType"
+            :readonly="true"
           ></v-switch>
         </v-list-item>
 
@@ -45,7 +46,7 @@
           ></v-switch>
         </v-list-item>
 
-        <v-list-item>1.1</v-list-item>
+        <v-list-item>1.2</v-list-item>
       </v-list>
     </v-navigation-drawer>
 
@@ -171,11 +172,12 @@ export default {
     }
 
     try {
-      let old_auto = JSON.parse(localStorage.getItem("auto"));
+      // let old_auto = JSON.parse(localStorage.getItem("auto"));
 
-      if (old_auto) {
-        this.auto = old_auto;
-      }
+      //  if (old_auto) {
+      //     this.auto = old_auto;
+      //   }
+      this.auto = false;
     } catch {
       console.log("no old type config");
     }
